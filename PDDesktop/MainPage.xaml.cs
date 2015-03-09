@@ -31,6 +31,8 @@ namespace PDDesktop
         private List<double> dAccY;
         private List<double> dAccZ;
 
+        private static int windowSize = 300;
+
         public MainPage()
         {
             this.InitializeComponent();
@@ -54,7 +56,6 @@ namespace PDDesktop
 
         private async void ReadDataFile(StorageFile dataFile)
         {
-            // Parse the data file
             IList<string> lines = await FileIO.ReadLinesAsync(dataFile);
 
             foreach (var line in lines)
@@ -137,7 +138,7 @@ namespace PDDesktop
             y1 = GraphBox.Height;
 
             double yScale = GraphBox.Height / readings.Max();
-            double xScale = GraphBox.Width / 300;
+            double xScale = GraphBox.Width / windowSize;
 
             int length = readings.Count();
 
@@ -149,7 +150,7 @@ namespace PDDesktop
             for (int i = start; i < length; i++)
             {
 
-                if (cnt >= 300)
+                if (cnt >= windowSize)
                 {
                     break;
                 }
