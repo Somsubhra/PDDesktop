@@ -22,8 +22,8 @@
             <TextBlock Text="Z Axis"/>
         </ComboBox>
         <TextBlock x:Name="AxisLabel" HorizontalAlignment="Left" Margin="1209,74,0,0" TextWrapping="Wrap" Text="Axis :" VerticalAlignment="Top" FontSize="18" Width="48"/>
-        <ComboBox x:Name="WindowSelector" HorizontalAlignment="Left" Margin="1037,68,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="WindowSelector_Changed"/>
-        <TextBlock x:Name="WindowLabel" HorizontalAlignment="Left" Margin="956,74,0,0" TextWrapping="Wrap" Text="Window :" VerticalAlignment="Top" FontSize="18"/>
+        <ComboBox x:Name="WindowSelector" HorizontalAlignment="Left" Margin="955,68,0,0" VerticalAlignment="Top" Width="207" SelectionChanged="WindowSelector_Changed"/>
+        <TextBlock x:Name="WindowLabel" HorizontalAlignment="Left" Margin="874,74,0,0" TextWrapping="Wrap" Text="Window :" VerticalAlignment="Top" FontSize="18"/>
 
     </Grid>
 </Page>

@@ -12,11 +12,10 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-using Windows.Storage.Pickers;
-using Windows.Storage;
-using Windows.UI.Xaml.Shapes;
-using Windows.UI.Xaml.Media;
 using Windows.UI;
+using Windows.UI.Xaml.Shapes;
+using Windows.Storage;
+using Windows.Storage.Pickers;
 
 namespace PDDesktop
 {
