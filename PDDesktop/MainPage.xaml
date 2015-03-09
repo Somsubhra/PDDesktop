@@ -12,6 +12,10 @@
         <TextBlock HorizontalAlignment="Left" Margin="32,36,0,0" TextWrapping="Wrap" Text="PDDesktop" VerticalAlignment="Top" Height="77" Width="325" FontSize="64" Foreground="#FF36B2EC"/>
         <TextBlock x:Name="DataFileContent" HorizontalAlignment="Left" Margin="32,204,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="540" Width="173" Text="No file selected"/>
         <TextBlock HorizontalAlignment="Left" Margin="32,180,0,0" TextWrapping="Wrap" Text="File Contents:" VerticalAlignment="Top" Height="19" Width="149" FontSize="16"/>
+        <Canvas HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100"/>
+        <Canvas x:Name="GraphBox" HorizontalAlignment="Left" Height="563" Margin="271,133,0,0" VerticalAlignment="Top" Width="1072"/>
+        <TextBlock x:Name="XLabel" HorizontalAlignment="Left" Margin="776,716,0,0" TextWrapping="Wrap" Text="Time" VerticalAlignment="Top" Height="28" Width="42" FontSize="16"/>
+        <TextBlock x:Name="YLabel" HorizontalAlignment="Left" Margin="187,346,0,0" TextWrapping="Wrap" Text="Change in Sensor Reading" VerticalAlignment="Top" Height="68" FontSize="16" TextAlignment="Center" Width="65"/>
 
     </Grid>
 </Page>

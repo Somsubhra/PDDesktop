@@ -14,6 +14,9 @@ using Windows.UI.Xaml.Navigation;
 
 using Windows.Storage.Pickers;
 using Windows.Storage;
+using Windows.UI.Xaml.Shapes;
+using Windows.UI.Xaml.Media;
+using Windows.UI;
 
 namespace PDDesktop
 {
@@ -43,7 +46,8 @@ namespace PDDesktop
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-
+            XLabel.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            YLabel.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
         }
 
         private async void ReadDataFile(StorageFile dataFile)
@@ -64,6 +68,7 @@ namespace PDDesktop
 
             CalculateDelta();
             DisplayData();
+            DrawGraph();
         }
 
         private void CalculateDelta()
@@ -94,6 +99,47 @@ namespace PDDesktop
             }
 
             DataFileContent.Text = content;
+        }
+
+        private void DrawGraph()
+        {
+            XLabel.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            YLabel.Visibility = Windows.UI.Xaml.Visibility.Visible;
+
+            double x1, x2, y1, y2;
+            y1 = GraphBox.Height;
+
+            double yScale = GraphBox.Height / dAccX.Max();
+            double xScale = GraphBox.Width / 300;
+
+            int length = dAccX.Count();
+
+            int start = 0;
+            int cnt = 0;
+
+            for (int i = start; i < length; i++)
+            {
+
+                if (cnt >= 300)
+                {
+                    break;
+                }
+
+                y2 = y1 - dAccX[i] * yScale;
+                x1 = i * xScale;
+                x2 = i * xScale;
+
+                Line line = new Line();
+                line.Stroke = new SolidColorBrush(Colors.Red);
+
+                line.X1 = x1;
+                line.X2 = x2;
+                line.Y1 = y1;
+                line.Y2 = y2;
+
+                GraphBox.Children.Add(line);
+                cnt++;
+            }
         }
 
         private async void ChooseDataFileBtn_Click(object sender, RoutedEventArgs e)
