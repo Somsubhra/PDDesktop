@@ -24,6 +24,10 @@ namespace PDDesktop
         private List<double> accY;
         private List<double> accZ;
 
+        private List<double> dAccX;
+        private List<double> dAccY;
+        private List<double> dAccZ;
+
         public MainPage()
         {
             this.InitializeComponent();
@@ -31,6 +35,10 @@ namespace PDDesktop
             accX = new List<double>();
             accY = new List<double>();
             accZ = new List<double>();
+
+            dAccX = new List<double>();
+            dAccY = new List<double>();
+            dAccZ = new List<double>();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -38,11 +46,13 @@ namespace PDDesktop
 
         }
 
-        private async void readDataFile(StorageFile dataFile) {
+        private async void ReadDataFile(StorageFile dataFile)
+        {
             // Parse the data file
             IList<string> lines = await FileIO.ReadLinesAsync(dataFile);
 
-            foreach(var line in lines) {
+            foreach (var line in lines)
+            {
 
                 string data = line.ToString();
                 string[] cols = data.Split(';');
@@ -52,22 +62,38 @@ namespace PDDesktop
                 accZ.Add(double.Parse(cols[2], System.Globalization.CultureInfo.InvariantCulture));
             }
 
-            var length = accX.Count();
+            CalculateDelta();
+            DisplayData();
+        }
+
+        private void CalculateDelta()
+        {
+            int length = accX.Count();
+
+            dAccX.Add(0);
+            dAccY.Add(0);
+            dAccZ.Add(0);
+
+            for (int i = 1; i < length; i++)
+            {
+                dAccX.Add(Math.Abs(accX[i] - accX[i - 1]));
+                dAccY.Add(Math.Abs(accY[i] - accY[i - 1]));
+                dAccZ.Add(Math.Abs(accZ[i] - accZ[i - 1]));
+            }
+        }
+
+        private void DisplayData()
+        {
+            int length = accX.Count();
 
             string content = "";
 
-            for (int i = 0; i < length; i++)
+            for (int i = 0; i < length && i < 40; i++)
             {
-                if (i > 40)
-                {
-                    break;
-                }
-
-                content += "X:" + accX[i].ToString() + " Y:" + accY[i].ToString() + " Z:" + accZ[i].ToString() + "\n";
+                content += "dX:" + dAccX[i].ToString() + " dY:" + dAccY[i].ToString() + " dZ:" + dAccZ[i].ToString() + "\n";
             }
 
             DataFileContent.Text = content;
-
         }
 
         private async void ChooseDataFileBtn_Click(object sender, RoutedEventArgs e)
@@ -76,10 +102,11 @@ namespace PDDesktop
             filePicker.FileTypeFilter.Add(".csv");
             filePicker.SuggestedStartLocation = PickerLocationId.Desktop;
 
-            var selectedFiles = await filePicker.PickSingleFileAsync();
+            var selectedFile = await filePicker.PickSingleFileAsync();
 
-            if (selectedFiles != null) {
-                readDataFile(selectedFiles);
+            if (selectedFile != null)
+            {
+                ReadDataFile(selectedFile);
             }
         }
     }
