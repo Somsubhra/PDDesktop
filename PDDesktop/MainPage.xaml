@@ -8,7 +8,10 @@
     mc:Ignorable="d">
 
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
-    	<Button x:Name="ChooseDataFileBtn" Content="Choose Data File" HorizontalAlignment="Left" Margin="10,231,0,0" VerticalAlignment="Top" Height="42" Width="173" Click="ChooseDataFileBtn_Click"/>
+    	<Button x:Name="ChooseDataFileBtn" Content="Choose Data File" HorizontalAlignment="Left" Margin="32,133,0,0" VerticalAlignment="Top" Height="42" Width="173" Click="ChooseDataFileBtn_Click"/>
+    	<TextBlock x:Name="DataFileContent" HorizontalAlignment="Left" Margin="32,215,0,0" TextWrapping="Wrap" Text="No File Selected" VerticalAlignment="Top" Height="543" Width="173"/>
+    	<TextBlock HorizontalAlignment="Left" Margin="32,180,0,0" TextWrapping="Wrap" Text="File Contents:" VerticalAlignment="Top" Height="35" Width="173" FontSize="18.667"/>
+    	<TextBlock HorizontalAlignment="Left" Margin="32,36,0,0" TextWrapping="Wrap" Text="PDDesktop" VerticalAlignment="Top" Height="77" Width="325" FontSize="64" Foreground="#FF36B2EC"/>
 
     </Grid>
 </Page>

@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 using Windows.Storage.Pickers;
+using Windows.Storage;
 
 namespace PDDesktop
 {
@@ -28,6 +29,25 @@ namespace PDDesktop
 
         }
 
+        private async void readDataFile(StorageFile dataFile) {
+            // Parse the data file
+            IList<string> lines = await FileIO.ReadLinesAsync(dataFile);
+
+            string content = "";
+            var itr = 0;
+            foreach(var line in lines) {
+
+                if (itr > 38) {
+                    break;
+                }
+
+                content += line.ToString() + "\n";
+                itr++;
+            }
+
+            DataFileContent.Text = content;
+        }
+
         private async void ChooseDataFileBtn_Click(object sender, RoutedEventArgs e)
         {
             var filePicker = new FileOpenPicker();
@@ -37,7 +57,7 @@ namespace PDDesktop
             var selectedFiles = await filePicker.PickSingleFileAsync();
 
             if (selectedFiles != null) {
-                // Parse the file
+                readDataFile(selectedFiles);
             }
         }
     }
