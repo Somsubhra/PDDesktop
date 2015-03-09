@@ -24,6 +24,10 @@
         <TextBlock x:Name="AxisLabel" HorizontalAlignment="Left" Margin="1209,74,0,0" TextWrapping="Wrap" Text="Axis :" VerticalAlignment="Top" FontSize="18" Width="48"/>
         <ComboBox x:Name="WindowSelector" HorizontalAlignment="Left" Margin="955,68,0,0" VerticalAlignment="Top" Width="207" SelectionChanged="WindowSelector_Changed"/>
         <TextBlock x:Name="WindowLabel" HorizontalAlignment="Left" Margin="874,74,0,0" TextWrapping="Wrap" Text="Window :" VerticalAlignment="Top" FontSize="18"/>
+        <TextBlock x:Name="YAxisStart" HorizontalAlignment="Left" Margin="243,677,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" FontSize="16"/>
+        <TextBlock x:Name="XAxisStart" HorizontalAlignment="Left" Margin="271,716,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" FontSize="16"/>
+        <TextBlock x:Name="XAxisEnd" HorizontalAlignment="Left" Margin="1321,716,0,0" TextWrapping="Wrap" Text="300" VerticalAlignment="Top" FontSize="16"/>
+        <TextBlock x:Name="YAxisEnd" HorizontalAlignment="Left" Margin="243,133,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" FontSize="16"/>
 
     </Grid>
 </Page>

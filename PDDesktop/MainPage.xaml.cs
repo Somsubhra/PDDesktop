@@ -53,6 +53,10 @@ namespace PDDesktop
             AxisSelector.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
             WindowLabel.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
             WindowSelector.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            XAxisStart.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            XAxisEnd.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            YAxisStart.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            YAxisEnd.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
         }
 
         private async void ReadDataFile(StorageFile dataFile)
@@ -128,6 +132,10 @@ namespace PDDesktop
             AxisLabel.Visibility = Windows.UI.Xaml.Visibility.Visible;
             WindowSelector.Visibility = Windows.UI.Xaml.Visibility.Visible;
             WindowLabel.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            XAxisStart.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            XAxisEnd.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            YAxisStart.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            YAxisEnd.Visibility = Windows.UI.Xaml.Visibility.Visible;
 
             int axis = AxisSelector.SelectedIndex;
 
@@ -164,6 +172,11 @@ namespace PDDesktop
 
             int start = WindowSelector.SelectedIndex * 300;
             int cnt = 0;
+
+            XAxisStart.Text = start.ToString();
+            XAxisEnd.Text = (start + 300).ToString();
+            YAxisStart.Text = "0";
+            YAxisEnd.Text = readings.Max().ToString();
 
             for (int i = start; i < length; i++)
             {
