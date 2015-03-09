@@ -48,6 +48,8 @@ namespace PDDesktop
         {
             XLabel.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
             YLabel.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            AxisLabel.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            AxisSelector.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
         }
 
         private async void ReadDataFile(StorageFile dataFile)
@@ -105,17 +107,44 @@ namespace PDDesktop
         {
             XLabel.Visibility = Windows.UI.Xaml.Visibility.Visible;
             YLabel.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            AxisSelector.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            AxisLabel.Visibility = Windows.UI.Xaml.Visibility.Visible;
+
+            int axis = AxisSelector.SelectedIndex;
+
+            Color graphColor;
+            List<double> readings;
+
+            switch (axis)
+            {
+                case 0:
+                    readings = dAccX;
+                    graphColor = Colors.Red;
+                    break;
+                case 1:
+                    readings = dAccY;
+                    graphColor = Colors.Green;
+                    break;
+                case 2:
+                    readings = dAccZ;
+                    graphColor = Colors.Blue;
+                    break;
+                default:
+                    return;
+            }
 
             double x1, x2, y1, y2;
             y1 = GraphBox.Height;
 
-            double yScale = GraphBox.Height / dAccX.Max();
+            double yScale = GraphBox.Height / readings.Max();
             double xScale = GraphBox.Width / 300;
 
-            int length = dAccX.Count();
+            int length = readings.Count();
 
             int start = 0;
             int cnt = 0;
+
+            GraphBox.Children.Clear();
 
             for (int i = start; i < length; i++)
             {
@@ -125,12 +154,12 @@ namespace PDDesktop
                     break;
                 }
 
-                y2 = y1 - dAccX[i] * yScale;
+                y2 = y1 - readings[i] * yScale;
                 x1 = i * xScale;
                 x2 = i * xScale;
 
                 Line line = new Line();
-                line.Stroke = new SolidColorBrush(Colors.Red);
+                line.Stroke = new SolidColorBrush(graphColor);
 
                 line.X1 = x1;
                 line.X2 = x2;
@@ -154,6 +183,15 @@ namespace PDDesktop
             {
                 ReadDataFile(selectedFile);
             }
+        }
+
+        private void AxisSelector_Changed(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                DrawGraph();
+            }
+            catch (Exception ex) { }
         }
     }
 }
