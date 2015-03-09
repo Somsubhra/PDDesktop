@@ -52,6 +52,8 @@ namespace PDDesktop
             YLabel.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
             AxisLabel.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
             AxisSelector.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            WindowLabel.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            WindowSelector.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
         }
 
         private async void ReadDataFile(StorageFile dataFile)
@@ -71,6 +73,7 @@ namespace PDDesktop
 
             CalculateDelta();
             DisplayData();
+            CreateWindows();
             DrawGraph();
         }
 
@@ -104,12 +107,28 @@ namespace PDDesktop
             DataFileContent.Text = content;
         }
 
+        private void CreateWindows()
+        {
+            int numWindows = (dAccX.Count() / 300) + 1;
+
+            for (int i = 0; i < numWindows; i++)
+            {
+                int begin = i * 300;
+                int end = begin + 300;
+                WindowSelector.Items.Add(begin.ToString() + " - " + end.ToString());
+            }
+
+            WindowSelector.SelectedIndex = 0;
+        }
+
         private void DrawGraph()
         {
             XLabel.Visibility = Windows.UI.Xaml.Visibility.Visible;
             YLabel.Visibility = Windows.UI.Xaml.Visibility.Visible;
             AxisSelector.Visibility = Windows.UI.Xaml.Visibility.Visible;
             AxisLabel.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            WindowSelector.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            WindowLabel.Visibility = Windows.UI.Xaml.Visibility.Visible;
 
             int axis = AxisSelector.SelectedIndex;
 
@@ -142,22 +161,21 @@ namespace PDDesktop
 
             int length = readings.Count();
 
-            int start = 0;
-            int cnt = 0;
-
             GraphBox.Children.Clear();
+
+            int start = WindowSelector.SelectedIndex * 300;
+            int cnt = 0;
 
             for (int i = start; i < length; i++)
             {
-
                 if (cnt >= windowSize)
                 {
                     break;
                 }
 
                 y2 = y1 - readings[i] * yScale;
-                x1 = i * xScale;
-                x2 = i * xScale;
+                x1 = cnt * xScale;
+                x2 = cnt * xScale;
 
                 Line line = new Line();
                 line.Stroke = new SolidColorBrush(graphColor);
@@ -192,7 +210,16 @@ namespace PDDesktop
             {
                 DrawGraph();
             }
-            catch (Exception ex) { }
+            catch (Exception) { }
+        }
+
+        private void WindowSelector_Changed(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                DrawGraph();
+            }
+            catch (Exception) { };
         }
     }
 }
