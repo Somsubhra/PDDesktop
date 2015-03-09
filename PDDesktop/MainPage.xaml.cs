@@ -19,9 +19,18 @@ namespace PDDesktop
 {
     public sealed partial class MainPage : Page
     {
+
+        private List<double> accX;
+        private List<double> accY;
+        private List<double> accZ;
+
         public MainPage()
         {
             this.InitializeComponent();
+
+            accX = new List<double>();
+            accY = new List<double>();
+            accZ = new List<double>();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -33,19 +42,32 @@ namespace PDDesktop
             // Parse the data file
             IList<string> lines = await FileIO.ReadLinesAsync(dataFile);
 
-            string content = "";
-            var itr = 0;
             foreach(var line in lines) {
 
-                if (itr > 38) {
+                string data = line.ToString();
+                string[] cols = data.Split(';');
+
+                accX.Add(double.Parse(cols[0], System.Globalization.CultureInfo.InvariantCulture));
+                accY.Add(double.Parse(cols[1], System.Globalization.CultureInfo.InvariantCulture));
+                accZ.Add(double.Parse(cols[2], System.Globalization.CultureInfo.InvariantCulture));
+            }
+
+            var length = accX.Count();
+
+            string content = "";
+
+            for (int i = 0; i < length; i++)
+            {
+                if (i > 40)
+                {
                     break;
                 }
 
-                content += line.ToString() + "\n";
-                itr++;
+                content += "X:" + accX[i].ToString() + " Y:" + accY[i].ToString() + " Z:" + accZ[i].ToString() + "\n";
             }
 
             DataFileContent.Text = content;
+
         }
 
         private async void ChooseDataFileBtn_Click(object sender, RoutedEventArgs e)
