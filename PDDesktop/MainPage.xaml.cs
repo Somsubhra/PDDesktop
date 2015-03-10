@@ -116,8 +116,6 @@ namespace PDDesktop
             {
                 content += "dX:" + dAccX[i].ToString() + " dY:" + dAccY[i].ToString() + " dZ:" + dAccZ[i].ToString() + "\n";
             }
-
-            DataFileContent.Text = content;
         }
 
         private void CreateWindows()
@@ -214,27 +212,27 @@ namespace PDDesktop
 
                 if (reading >= 0 && reading < maxReading / 10)
                 {
-                    graphColor = Colors.DarkRed;
+                    graphColor = Colors.Red;
                 }
                 else if (reading >= maxReading / 10 && reading < 2 * maxReading / 10)
                 {
-                    graphColor = Colors.Red;
+                    graphColor = Colors.OrangeRed;
                 }
                 else if (reading >= 2 * maxReading / 10 && reading < 3 * maxReading / 10)
                 {
-                    graphColor = Colors.OrangeRed;
+                    graphColor = Colors.Yellow;
                 }
                 else if (reading >= 3 * maxReading / 10 && reading < 4 * maxReading / 10)
                 {
-                    graphColor = Colors.Orange;
+                    graphColor = Colors.LightYellow;
                 }
                 else if (reading >= 4 * maxReading / 10 && reading <= 5 * maxReading / 10)
                 {
-                    graphColor = Colors.Yellow;
+                    graphColor = Colors.YellowGreen;
                 }
                 else if (reading >= 5 * maxReading / 10 && reading <= 6 * maxReading / 10)
                 {
-                    graphColor = Colors.YellowGreen;
+                    graphColor = Colors.Lime;
                 }
                 else if (reading >= 6 * maxReading / 10 && reading <= 7 * maxReading / 10)
                 {
