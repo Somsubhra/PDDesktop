@@ -14,7 +14,7 @@
         <TextBlock HorizontalAlignment="Left" Margin="32,180,0,0" TextWrapping="Wrap" Text="File Contents :" VerticalAlignment="Top" Height="19" Width="149" FontSize="16"/>
         <Canvas HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100"/>
         <Canvas x:Name="GraphBox" HorizontalAlignment="Left" Height="563" Margin="271,133,0,0" VerticalAlignment="Top" Width="1072"/>
-        <TextBlock x:Name="XLabel" HorizontalAlignment="Left" Margin="776,716,0,0" TextWrapping="Wrap" Text="Time" VerticalAlignment="Top" Height="28" Width="42" FontSize="16"/>
+        <TextBlock x:Name="XLabel" HorizontalAlignment="Left" Margin="677,716,0,0" TextWrapping="Wrap" Text="Time ( in seconds)" VerticalAlignment="Top" Height="28" Width="141" FontSize="16"/>
         <TextBlock x:Name="YLabel" HorizontalAlignment="Left" Margin="187,346,0,0" TextWrapping="Wrap" Text="Change in Sensor Reading" VerticalAlignment="Top" Height="68" FontSize="16" TextAlignment="Center" Width="65"/>
         <ComboBox x:Name="AxisSelector" HorizontalAlignment="Left" Margin="1256,68,0,0" VerticalAlignment="Top" Width="87" SelectedIndex="0" SelectionChanged="AxisSelector_Changed">
             <TextBlock Text="X Axis"/>
@@ -26,8 +26,23 @@
         <TextBlock x:Name="WindowLabel" HorizontalAlignment="Left" Margin="874,74,0,0" TextWrapping="Wrap" Text="Window :" VerticalAlignment="Top" FontSize="18"/>
         <TextBlock x:Name="YAxisStart" HorizontalAlignment="Left" Margin="243,677,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" FontSize="16"/>
         <TextBlock x:Name="XAxisStart" HorizontalAlignment="Left" Margin="271,716,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" FontSize="16"/>
-        <TextBlock x:Name="XAxisEnd" HorizontalAlignment="Left" Margin="1321,716,0,0" TextWrapping="Wrap" Text="300" VerticalAlignment="Top" FontSize="16"/>
+        <TextBlock x:Name="XAxisEnd" HorizontalAlignment="Left" Margin="1321,716,0,0" TextWrapping="Wrap" Text="30" VerticalAlignment="Top" FontSize="16"/>
         <TextBlock x:Name="YAxisEnd" HorizontalAlignment="Left" Margin="243,133,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" FontSize="16"/>
+        <ComboBox x:Name="WindowSizeSelector" HorizontalAlignment="Left" Margin="745,68,0,0" VerticalAlignment="Top" Width="73" SelectedIndex="2" SelectionChanged="WindowSize_Changed">
+            <TextBlock Text="10"/>
+            <TextBlock Text="20"/>
+            <TextBlock Text="30"/>
+            <TextBlock Text="40"/>
+            <TextBlock Text="50"/>
+            <TextBlock Text="60"/>
+            <TextBlock Text="70"/>
+            <TextBlock Text="80"/>
+            <TextBlock Text="90"/>
+            <TextBlock Text="100"/>
+            <TextBlock Text="110"/>
+            <TextBlock Text="120"/>
+        </ComboBox>
+        <TextBlock x:Name="WindowSizeLabel" HorizontalAlignment="Left" Margin="628,74,0,0" TextWrapping="Wrap" Text="Window Size :" VerticalAlignment="Top" Height="24" Width="122" FontSize="18"/>
 
     </Grid>
 </Page>

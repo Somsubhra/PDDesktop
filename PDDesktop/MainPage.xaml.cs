@@ -30,8 +30,6 @@ namespace PDDesktop
         private List<double> dAccY;
         private List<double> dAccZ;
 
-        private static int windowSize = 300;
-
         public MainPage()
         {
             this.InitializeComponent();
@@ -57,6 +55,8 @@ namespace PDDesktop
             XAxisEnd.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
             YAxisStart.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
             YAxisEnd.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            WindowSizeSelector.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            WindowSizeLabel.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
         }
 
         private async void ReadDataFile(StorageFile dataFile)
@@ -112,12 +112,16 @@ namespace PDDesktop
 
         private void CreateWindows()
         {
-            int numWindows = (dAccX.Count() / 300) + 1;
+            WindowSelector.Items.Clear();
+
+            int windowSize = (WindowSizeSelector.SelectedIndex + 1) * 100;
+
+            int numWindows = (dAccX.Count() / windowSize) + 1;
 
             for (int i = 0; i < numWindows; i++)
             {
-                int begin = i * 300;
-                int end = begin + 300;
+                int begin = i * windowSize;
+                int end = begin + windowSize;
                 WindowSelector.Items.Add(begin.ToString() + " - " + end.ToString());
             }
 
@@ -136,8 +140,12 @@ namespace PDDesktop
             XAxisEnd.Visibility = Windows.UI.Xaml.Visibility.Visible;
             YAxisStart.Visibility = Windows.UI.Xaml.Visibility.Visible;
             YAxisEnd.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            WindowSizeSelector.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            WindowSizeLabel.Visibility = Windows.UI.Xaml.Visibility.Visible;
 
             int axis = AxisSelector.SelectedIndex;
+
+            int windowSize = (WindowSizeSelector.SelectedIndex + 1) * 100;
 
             Color graphColor;
             List<double> readings;
@@ -170,11 +178,11 @@ namespace PDDesktop
 
             GraphBox.Children.Clear();
 
-            int start = WindowSelector.SelectedIndex * 300;
+            int start = WindowSelector.SelectedIndex * windowSize;
             int cnt = 0;
 
             XAxisStart.Text = start.ToString();
-            XAxisEnd.Text = (start + 300).ToString();
+            XAxisEnd.Text = (start + windowSize).ToString();
             YAxisStart.Text = "0";
             YAxisEnd.Text = readings.Max().ToString();
 
@@ -229,6 +237,16 @@ namespace PDDesktop
         {
             try
             {
+                DrawGraph();
+            }
+            catch (Exception) { };
+        }
+
+        private void WindowSize_Changed(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                CreateWindows();
                 DrawGraph();
             }
             catch (Exception) { };
