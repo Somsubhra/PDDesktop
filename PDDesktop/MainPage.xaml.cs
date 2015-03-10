@@ -30,6 +30,8 @@ namespace PDDesktop
         private List<double> dAccY;
         private List<double> dAccZ;
 
+        private List<double> dAcc;
+
         public MainPage()
         {
             this.InitializeComponent();
@@ -41,6 +43,8 @@ namespace PDDesktop
             dAccX = new List<double>();
             dAccY = new List<double>();
             dAccZ = new List<double>();
+
+            dAcc = new List<double>();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -87,12 +91,18 @@ namespace PDDesktop
             dAccX.Add(0);
             dAccY.Add(0);
             dAccZ.Add(0);
-
+            dAcc.Add(0);
             for (int i = 1; i < length; i++)
             {
-                dAccX.Add(Math.Abs(accX[i] - accX[i - 1]));
-                dAccY.Add(Math.Abs(accY[i] - accY[i - 1]));
-                dAccZ.Add(Math.Abs(accZ[i] - accZ[i - 1]));
+                double dx = Math.Abs(accX[i] - accX[i - 1]);
+                double dy = Math.Abs(accY[i] - accY[i - 1]);
+                double dz = Math.Abs(accZ[i] - accZ[i - 1]);
+                
+                dAccX.Add(dx);
+                dAccY.Add(dy);
+                dAccZ.Add(dz);
+
+                dAcc.Add(dx + dy + dz);
             }
         }
 
@@ -147,22 +157,21 @@ namespace PDDesktop
 
             int windowSize = (WindowSizeSelector.SelectedIndex + 1) * 100;
 
-            Color graphColor;
             List<double> readings;
 
             switch (axis)
             {
                 case 0:
                     readings = dAccX;
-                    graphColor = Colors.Red;
                     break;
                 case 1:
                     readings = dAccY;
-                    graphColor = Colors.Green;
                     break;
                 case 2:
                     readings = dAccZ;
-                    graphColor = Colors.Blue;
+                    break;
+                case 3:
+                    readings = dAcc;
                     break;
                 default:
                     return;
@@ -171,7 +180,9 @@ namespace PDDesktop
             double x1, x2, y1, y2;
             y1 = GraphBox.Height;
 
-            double yScale = GraphBox.Height / readings.Max();
+            double maxReading = readings.Max();
+
+            double yScale = GraphBox.Height / maxReading;
             double xScale = GraphBox.Width / windowSize;
 
             int length = readings.Count();
@@ -184,7 +195,7 @@ namespace PDDesktop
             XAxisStart.Text = start.ToString();
             XAxisEnd.Text = (start + windowSize).ToString();
             YAxisStart.Text = "0";
-            YAxisEnd.Text = readings.Max().ToString();
+            YAxisEnd.Text = maxReading.ToString();
 
             for (int i = start; i < length; i++)
             {
@@ -193,9 +204,54 @@ namespace PDDesktop
                     break;
                 }
 
-                y2 = y1 - readings[i] * yScale;
+                double reading = readings[i];
+
+                y2 = y1 - reading * yScale;
                 x1 = cnt * xScale;
                 x2 = cnt * xScale;
+
+                Color graphColor;
+
+                if (reading >= 0 && reading < maxReading / 10)
+                {
+                    graphColor = Colors.DarkRed;
+                }
+                else if (reading >= maxReading / 10 && reading < 2 * maxReading / 10)
+                {
+                    graphColor = Colors.Red;
+                }
+                else if (reading >= 2 * maxReading / 10 && reading < 3 * maxReading / 10)
+                {
+                    graphColor = Colors.OrangeRed;
+                }
+                else if (reading >= 3 * maxReading / 10 && reading < 4 * maxReading / 10)
+                {
+                    graphColor = Colors.Orange;
+                }
+                else if (reading >= 4 * maxReading / 10 && reading <= 5 * maxReading / 10)
+                {
+                    graphColor = Colors.Yellow;
+                }
+                else if (reading >= 5 * maxReading / 10 && reading <= 6 * maxReading / 10)
+                {
+                    graphColor = Colors.YellowGreen;
+                }
+                else if (reading >= 6 * maxReading / 10 && reading <= 7 * maxReading / 10)
+                {
+                    graphColor = Colors.Green;
+                }
+                else if (reading >= 7 * maxReading / 10 && reading <= 8 * maxReading / 10)
+                {
+                    graphColor = Colors.DarkGreen;
+                }
+                else if (reading >= 8 * maxReading / 10 && reading <= 9 * maxReading / 10)
+                {
+                    graphColor = Colors.Blue;
+                }
+                else if (reading >= 9 * maxReading / 10 && reading <= maxReading)
+                {
+                    graphColor = Colors.DarkBlue;
+                }
 
                 Line line = new Line();
                 line.Stroke = new SolidColorBrush(graphColor);
