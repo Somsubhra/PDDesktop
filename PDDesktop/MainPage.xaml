@@ -42,6 +42,11 @@
             <TextBlock Text="120"/>
         </ComboBox>
         <TextBlock x:Name="WindowSizeLabel" HorizontalAlignment="Left" Margin="530,74,0,0" TextWrapping="Wrap" Text="Window Size (in seconds) :" VerticalAlignment="Top" Height="24" Width="220" FontSize="18"/>
+        <TextBlock x:Name="GraphSelector" HorizontalAlignment="Left" Margin="32,651,0,0" TextWrapping="Wrap" Text="Graph :" VerticalAlignment="Top" Height="19" Width="101" FontSize="18"/>
+        <ComboBox x:Name="GraphSelectorBox" HorizontalAlignment="Left" Margin="32,677,0,0" VerticalAlignment="Top" Width="125" SelectedIndex="0">
+            <TextBlock Text="Graph"/>
+            <TextBlock Text="Histogram"/>
+        </ComboBox>
 
     </Grid>
 </Page>
