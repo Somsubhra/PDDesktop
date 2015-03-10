@@ -165,10 +165,10 @@ namespace PDDesktop
 
             for (int i = 0; i < length; i++)
             {
-                double dx = double.Parse(dAccX[i].ToString("0.00"));
-                double dy = double.Parse(dAccY[i].ToString("0.00"));
-                double dz = double.Parse(dAccZ[i].ToString("0.00"));
-                double d = double.Parse(dAcc[i].ToString("0.00"));
+                double dx = double.Parse(dAccX[i].ToString("0.000"));
+                double dy = double.Parse(dAccY[i].ToString("0.000"));
+                double dz = double.Parse(dAccZ[i].ToString("0.000"));
+                double d = double.Parse(dAcc[i].ToString("0.000"));
 
                 if (histogramX.ContainsKey(dx))
                 {
@@ -471,11 +471,11 @@ namespace PDDesktop
             YLabel.Text = "Density";
 
             int sum = 0;
-            int end = (int)(maxKey * 100);
+            int end = (int)(maxKey * 1000);
 
             for (int c = 0; c <= end; c++)
             {
-                double i = (double)c / 100.0;
+                double i = (double)c / 1000.0;
                 
                 if (readings.ContainsKey(i))
                 {
