@@ -276,7 +276,7 @@ namespace PDDesktop
             int cnt = 0;
 
             XAxisStart.Text = start.ToString();
-            XAxisEnd.Text = (start + windowSize).ToString();
+            XAxisEnd.Text = ((start + windowSize) / 10).ToString();
             YAxisStart.Text = "0";
             YAxisEnd.Text = maxReading.ToString();
 

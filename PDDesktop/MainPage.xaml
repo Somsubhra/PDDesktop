@@ -12,8 +12,8 @@
         <TextBlock HorizontalAlignment="Left" Margin="32,36,0,0" TextWrapping="Wrap" Text="Parkinson's Detector" VerticalAlignment="Top" Height="116" Width="325" FontSize="48" Foreground="#FF36B2EC"/>
         <Canvas HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100"/>
         <Canvas x:Name="GraphBox" HorizontalAlignment="Left" Height="563" Margin="271,133,0,0" VerticalAlignment="Top" Width="1072"/>
-        <TextBlock x:Name="XLabel" HorizontalAlignment="Left" Margin="677,716,0,0" TextWrapping="Wrap" Text="Time ( in seconds)" VerticalAlignment="Top" Height="28" Width="141" FontSize="16"/>
-        <TextBlock x:Name="YLabel" HorizontalAlignment="Left" Margin="187,346,0,0" TextWrapping="Wrap" Text="Change in Sensor Reading" VerticalAlignment="Top" Height="68" FontSize="16" TextAlignment="Center" Width="65"/>
+        <TextBlock x:Name="XLabel" HorizontalAlignment="Left" Margin="677,716,0,0" TextWrapping="Wrap" Text="Time ( in seconds)" VerticalAlignment="Top" Height="28" Width="271" FontSize="16"/>
+        <TextBlock x:Name="YLabel" HorizontalAlignment="Left" Margin="166,346,0,0" TextWrapping="Wrap" Text="Change in Sensor Reading" VerticalAlignment="Top" Height="68" FontSize="16" TextAlignment="Center" Width="86"/>
         <ComboBox x:Name="AxisSelector" HorizontalAlignment="Left" Margin="1256,68,0,0" VerticalAlignment="Top" Width="87" SelectedIndex="3" SelectionChanged="AxisSelector_Changed">
             <TextBlock Text="X Axis"/>
             <TextBlock Text="Y Axis"/>
