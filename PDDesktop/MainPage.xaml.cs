@@ -65,6 +65,10 @@ namespace PDDesktop
 
         private async void ReadDataFile(StorageFile dataFile)
         {
+            accX.Clear();
+            accY.Clear();
+            accZ.Clear();
+
             IList<string> lines = await FileIO.ReadLinesAsync(dataFile);
 
             foreach (var line in lines)
@@ -88,10 +92,16 @@ namespace PDDesktop
         {
             int length = accX.Count();
 
+            dAcc.Clear();
+            dAccX.Clear();
+            dAccY.Clear();
+            dAccZ.Clear();
+
             dAccX.Add(0);
             dAccY.Add(0);
             dAccZ.Add(0);
             dAcc.Add(0);
+            
             for (int i = 1; i < length; i++)
             {
                 double dx = Math.Abs(accX[i] - accX[i - 1]);
