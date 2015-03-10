@@ -388,7 +388,7 @@ namespace PDDesktop
             double maxValue = readings.Values.Max();
 
             double yScale = GraphBox.Height / maxValue;
-            double xScale = GraphBox.Width / (maxKey);
+            double xScale = GraphBox.Width / maxKey;
 
             GraphBox.Children.Clear();
 
