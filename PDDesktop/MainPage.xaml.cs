@@ -60,7 +60,7 @@ namespace PDDesktop
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            HideGraphElements();   
+            HideGraphElements();
         }
 
         private void HideGraphElements()
@@ -280,6 +280,9 @@ namespace PDDesktop
             YAxisStart.Text = "0";
             YAxisEnd.Text = maxReading.ToString();
 
+            XLabel.Text = "Time (in seconds)";
+            YLabel.Text = "Change in Sensor Reading";
+
             for (int i = start; i < length; i++)
             {
                 if (cnt >= windowSize)
@@ -395,7 +398,10 @@ namespace PDDesktop
             XAxisStart.Text = "0";
             YAxisStart.Text = "0";
             XAxisEnd.Text = maxKey.ToString();
-            YAxisStart.Text = maxValue.ToString();
+            YAxisEnd.Text = maxValue.ToString();
+
+            XLabel.Text = "Change in Sensor Reading";
+            YLabel.Text = "Frequency";
 
             foreach (KeyValuePair<double, int> reading in readings)
             {
@@ -429,7 +435,7 @@ namespace PDDesktop
             }
         }
 
-        private void AxisSelector_Changed(object sender, SelectionChangedEventArgs e)
+        private void RefreshGraph()
         {
             try
             {
@@ -441,26 +447,18 @@ namespace PDDesktop
                 {
                     DrawHistogram();
                 }
-                
             }
-            catch (Exception) { }
+            catch (Exception) { };
+        }
+
+        private void AxisSelector_Changed(object sender, SelectionChangedEventArgs e)
+        {
+            RefreshGraph();
         }
 
         private void WindowSelector_Changed(object sender, SelectionChangedEventArgs e)
         {
-            try
-            {
-                if (GraphSelectorBox.SelectedIndex == 0)
-                {
-                    DrawGraph();
-                }
-                else
-                {
-                    DrawHistogram();
-                }
-                
-            }
-            catch (Exception) { };
+            RefreshGraph();
         }
 
         private void WindowSize_Changed(object sender, SelectionChangedEventArgs e)
@@ -468,17 +466,15 @@ namespace PDDesktop
             try
             {
                 CreateWindows();
-
-                if (GraphSelectorBox.SelectedIndex == 0)
-                {
-                    DrawGraph();
-                }
-                else
-                {
-                    DrawHistogram();
-                }
             }
-            catch (Exception) { };
+            catch (Exception) { }
+
+            RefreshGraph();
+        }
+
+        private void GraphSelector_Changed(object sender, SelectionChangedEventArgs e)
+        {
+            RefreshGraph();
         }
     }
 }
