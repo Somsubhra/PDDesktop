@@ -120,16 +120,10 @@ namespace PDDesktop
 
             CalculateDelta();
             CalculateHistogram();
+
             CreateWindows();
 
-            if (GraphSelectorBox.SelectedIndex == 0)
-            {
-                DrawGraph();
-            }
-            else
-            {
-                DrawHistogram();
-            }
+            RefreshGraph();
         }
 
         private void CalculateDelta()
@@ -407,7 +401,90 @@ namespace PDDesktop
             {
                 x1 = reading.Key * xScale;
                 x2 = reading.Key * xScale;
-                y2 = reading.Value * yScale;
+                y2 = y1 - reading.Value * yScale;
+
+                Line line = new Line();
+                line.Stroke = new SolidColorBrush(graphColor);
+
+                line.X1 = x1;
+                line.X2 = x2;
+                line.Y1 = y1;
+                line.Y2 = y2;
+
+                GraphBox.Children.Add(line);
+            }
+        }
+
+        private void DrawCumulativeHistogram()
+        {
+            ShowGraphElements();
+
+            int axis = AxisSelector.SelectedIndex;
+
+            Dictionary<double, int> readings;
+
+            Color graphColor;
+
+            switch (axis)
+            {
+                case 0:
+                    readings = histogramX;
+                    graphColor = Colors.Red;
+                    break;
+
+                case 1:
+                    readings = histogramY;
+                    graphColor = Colors.Green;
+                    break;
+
+                case 2:
+                    readings = histogramZ;
+                    graphColor = Colors.Blue;
+                    break;
+
+                case 3:
+                    readings = histogram;
+                    graphColor = Colors.Yellow;
+                    break;
+
+                default:
+                    return;
+            }
+
+            double x1, x2, y1, y2;
+            y1 = GraphBox.Height;
+
+            double maxValue = accX.Count();
+            double maxKey = readings.Keys.Max();
+
+            double yScale = GraphBox.Height / maxValue;
+            double xScale = GraphBox.Width / maxKey;
+
+            GraphBox.Children.Clear();
+
+            XAxisStart.Text = "0";
+            YAxisStart.Text = "0";
+            XAxisEnd.Text = maxKey.ToString();
+            YAxisEnd.Text = maxValue.ToString();
+
+            XLabel.Text = "Change in Sensor Reading";
+            YLabel.Text = "Density";
+
+            int sum = 0;
+            int end = (int)(maxKey * 100);
+
+            for (int c = 0; c <= end; c++)
+            {
+                double i = (double)c / 100.0;
+                
+                if (readings.ContainsKey(i))
+                {
+                    sum += readings[i];
+                }
+
+                x1 = i * xScale;
+                x2 = i * xScale;
+                y2 = y1 - sum * yScale;
 
                 Line line = new Line();
                 line.Stroke = new SolidColorBrush(graphColor);
@@ -439,13 +516,19 @@ namespace PDDesktop
         {
             try
             {
-                if (GraphSelectorBox.SelectedIndex == 0)
+                switch (GraphSelectorBox.SelectedIndex)
                 {
-                    DrawGraph();
-                }
-                else
-                {
-                    DrawHistogram();
+                    case 0:
+                        DrawGraph();
+                        break;
+                    case 1:
+                        DrawHistogram();
+                        break;
+                    case 2:
+                        DrawCumulativeHistogram();
+                        break;
+                    default:
+                        return;
                 }
             }
             catch (Exception) { };
