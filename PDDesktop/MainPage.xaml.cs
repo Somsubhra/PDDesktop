@@ -113,9 +113,18 @@ namespace PDDesktop
                 string data = line.ToString();
                 string[] cols = data.Split(';');
 
-                accX.Add(double.Parse(cols[0], System.Globalization.CultureInfo.InvariantCulture));
-                accY.Add(double.Parse(cols[1], System.Globalization.CultureInfo.InvariantCulture));
-                accZ.Add(double.Parse(cols[2], System.Globalization.CultureInfo.InvariantCulture));
+                double x = double.Parse(cols[0], System.Globalization.CultureInfo.InvariantCulture);
+                double y = double.Parse(cols[1], System.Globalization.CultureInfo.InvariantCulture);
+                double z = double.Parse(cols[2], System.Globalization.CultureInfo.InvariantCulture);
+
+                if (x > 1.0 || x < -1.0 || y > 1.0 || y < -1.0 || z > 1.0 || z < -1.0)
+                {
+                    continue;
+                }
+                
+                accX.Add(x);
+                accY.Add(y);
+                accZ.Add(z);
             }
 
             CalculateDelta();
@@ -150,7 +159,7 @@ namespace PDDesktop
                 dAccY.Add(dy);
                 dAccZ.Add(dz);
 
-                dAcc.Add(dx + dy + dz);
+                dAcc.Add((dx + dy + dz) / 3.0);
             }
         }
 
@@ -380,8 +389,14 @@ namespace PDDesktop
 
             double x1, x2, y1, y2;
             y1 = GraphBox.Height;
+            
+            double maxKey = 1.0;
 
-            double maxKey = readings.Keys.Max();
+            if (readings.Keys.Max() > 1.0)
+            {
+                maxKey = 2.0;
+            }
+            
             double maxValue = readings.Values.Max();
 
             double yScale = GraphBox.Height / maxValue;
@@ -455,7 +470,13 @@ namespace PDDesktop
             y1 = GraphBox.Height;
 
             double maxValue = accX.Count();
-            double maxKey = readings.Keys.Max();
+
+            double maxKey = 1.0;
+
+            if (readings.Keys.Max() > 1.0) 
+            {
+                maxKey = 2.0;
+            }
 
             double yScale = GraphBox.Height / maxValue;
             double xScale = GraphBox.Width / maxKey;
