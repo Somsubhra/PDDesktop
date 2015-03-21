@@ -46,7 +46,7 @@
         <ComboBox x:Name="GraphSelectorBox" HorizontalAlignment="Left" Margin="32,677,0,0" VerticalAlignment="Top" Width="125" SelectedIndex="0" SelectionChanged="GraphSelector_Changed">
             <TextBlock Text="Graph"/>
             <TextBlock Text="Histogram"/>
-            <TextBlock Text="Cumulative"/>
+            <TextBlock Text="Density"/>
         </ComboBox>
 
     </Grid>
