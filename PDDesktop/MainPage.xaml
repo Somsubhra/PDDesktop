@@ -48,6 +48,7 @@
             <TextBlock Text="Histogram"/>
             <TextBlock Text="Density"/>
         </ComboBox>
+        <TextBlock x:Name="PredictionLbl" HorizontalAlignment="Left" Margin="556,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="40" Width="652" FontSize="18"/>
 
     </Grid>
 </Page>

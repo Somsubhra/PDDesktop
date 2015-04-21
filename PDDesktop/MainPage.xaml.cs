@@ -133,6 +133,8 @@ namespace PDDesktop
             CreateWindows();
 
             RefreshGraph();
+
+            Predict();
         }
 
         private void CalculateDelta()
@@ -215,6 +217,40 @@ namespace PDDesktop
                     histogram[d] = 1;
                 }
             }
+        }
+
+        private void Predict()
+        {
+            int max = 1000;
+
+            if (histogram.Keys.Max() > 1.0)
+            {
+                max = 2000;
+            }
+
+            int midVals = 0;
+
+            for (int itr = max / 3; itr < (2 * max) / 3; itr++)
+            {
+                double i = (double)itr / 1000.0;
+                if (histogram.ContainsKey(i))
+                {
+                    midVals += histogram[i];
+                }
+            }
+
+            int totalVals = accX.Count();
+            double percent = ((double)midVals / (double)totalVals) * 100;
+
+            if (percent > 20.0)
+            {
+                PredictionLbl.Text = "Parkinson's disease detected (" + percent.ToString("0.00") + "% medium tremors)";
+            }
+            else
+            {
+                PredictionLbl.Text = "Parkinson's disease not detected (" + percent.ToString("0.00") + "% medium tremors)";
+            }
+            
         }
 
         private void CreateWindows()
