@@ -79,6 +79,7 @@ namespace PDDesktop
             WindowSizeLabel.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
             GraphSelector.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
             GraphSelectorBox.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            DescLbl.Visibility = Windows.UI.Xaml.Visibility.Visible;
         }
 
         private void ShowGraphElements()
@@ -97,6 +98,7 @@ namespace PDDesktop
             WindowSizeLabel.Visibility = Windows.UI.Xaml.Visibility.Visible;
             GraphSelector.Visibility = Windows.UI.Xaml.Visibility.Visible;
             GraphSelectorBox.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            DescLbl.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
         }
 
         private async void ReadDataFile(StorageFile dataFile)
